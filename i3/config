@@ -1,0 +1,164 @@
+# TABLE OF CONTENTS
+
+# line number   section
+# 12     	SETTINGS/CONSTANTS
+# 43		KEYMAPS
+#		THEMING
+# 136		    COLORS
+# 146 		    KEYBOARD
+# 152		    GAPS SUPPORT
+
+
+# SETTINGS/CONSTANTS
+
+# mod key == windows key
+set $mod Mod4
+
+# i3 font
+font pango:Ubuntu 11
+
+# floating_modifier == mod key
+floating_modifier $mod
+
+# i3 colors (all navy blue)
+set $bg-color            #353945
+set $inactive-bg-color   #353945
+set $text-color          #858C98
+set $inactive-text-color #858C98
+set $urgent-bg-color     #353945
+
+# workspace names
+set $workspace1 1
+set $workspace2 2
+set $workspace3 3
+set $workspace4 4
+set $workspace5 5
+set $workspace6 6
+set $workspace7 7
+set $workspace8 8
+set $workspace9 9
+set $workspace0 0
+
+
+# KEYMAPS
+
+# start gnome-terminal
+bindsym $mod+Return exec gnome-terminal
+
+# kill focused window
+bindsym $mod+Shift+q kill
+
+# start dmenu
+bindsym $mod+d exec dmenu_run
+
+# change focus
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+semicolon focus right
+# move focused window
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move up
+bindsym $mod+Shift+semicolon move right
+
+# split in horizontal orientation
+bindsym $mod+h split h
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# toggling split
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# focus the child container
+bindsym $mod+t focus child
+
+# workspace switching
+bindsym $mod+1 workspace $workspace1
+bindsym $mod+2 workspace $workspace2
+bindsym $mod+3 workspace $workspace3
+bindsym $mod+4 workspace $workspace4
+bindsym $mod+5 workspace $workspace5
+bindsym $mod+6 workspace $workspace6
+bindsym $mod+7 workspace $workspace7
+bindsym $mod+8 workspace $workspace8
+bindsym $mod+9 workspace $workspace9
+bindsym $mod+0 workspace $workspace0
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $workspace1
+bindsym $mod+Shift+2 move container to workspace $workspace2
+bindsym $mod+Shift+3 move container to workspace $workspace3
+bindsym $mod+Shift+4 move container to workspace $workspace4
+bindsym $mod+Shift+5 move container to workspace $workspace5
+bindsym $mod+Shift+6 move container to workspace $workspace6
+bindsym $mod+Shift+7 move container to workspace $workspace7
+bindsym $mod+Shift+8 move container to workspace $workspace8
+bindsym $mod+Shift+9 move container to workspace $workspace9
+bindsym $mod+Shift+0 move container to workspace $workspace0
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+
+# restart i3 inplace
+bindsym $mod+Shift+r restart
+
+# exiting i3
+bindsfym $mod+Shift+e exec i3-msg exit
+
+# resizing
+mode "resize"
+{
+# q + a = up and down; w and s = left and right
+    bindsym s resize shrink width 10 px or 10 ppt
+    bindsym q resize grow height 10 px or 10 ppt
+    bindsym a resize shrink height 10 px or 10 ppt
+    bindsym w resize grow width 10 px or 10 ppt
+
+# returning modes
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+
+# THEMING
+# COLORS
+
+# window colors
+#                       border              background         text                 indicator
+client.focused          $bg-color           $bg-color          $text-color          #2C2E2F
+client.unfocused        $inactive-bg-color  $inactive-bg-color $inactive-text-color #2C2E2F
+client.focused_inactive $inactive-bg-color  $inactive-bg-color $inactive-text-color #2C2E2F
+
+
+# THEMING
+# KEYBOARD
+exec_always setxkbmap -option ctrl:nocaps
+bindsym $mod+Shift+x exec dm-tool lock
+
+
+# THEMING
+# GAPS SUPPORT
+
+# no gaps (hiding title bar and borders)
+new_window 1pixel
+hide_edge_borders both
+
+# gaps (i3-gaps must be installed):
+for_window [class="^.*"] border pixel 0
+gaps inner 20
+exec_always feh --bg-fill /home/jeff/Pictures/SolarizedStreets.jpg
+exec_always compton --config /home/jeff/.config/i3/compton.conf.new
+
